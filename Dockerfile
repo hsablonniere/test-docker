@@ -5,7 +5,7 @@ RUN apt-get update && apt-get install -y \
 	libtool \
 	curl
 
-RUN curl --output clever-tools_linux.tar.gz https://clever-tools.cellar.services.clever-cloud.com/releases/1.1.0/clever-tools-1.1.0_linux.tar.gz \
+RUN curl --output clever-tools_linux.tar.gz https://clever-tools.cellar.services.clever-cloud.com/releases/1.1.1-beta.1/clever-tools-1.1.1-beta.1_linux.tar.gz \
 	&& mkdir clever-tools_linux \
 	&& tar xvzf clever-tools_linux.tar.gz -C clever-tools_linux --strip-components=1 \
 	&& cp clever-tools_linux/clever /usr/local/bin
@@ -22,7 +22,7 @@ RUN \
 
 FROM busybox AS release
 
-LABEL version="1.1.0" \
+LABEL version="1.1.1-beta.1" \
 	maintainer="Clever Cloud CI <ci@clever-cloud.com>" \
 	description="Command Line Interface for Clever Cloud." \
 	license="MIT"
