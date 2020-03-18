@@ -4,7 +4,7 @@ RUN apt-get update && apt-get install -y \
 	libtool \
 	curl
 
-RUN curl --output clever-tools_linux.tar.gz https://clever-tools.clever-cloud.com/releases/2.1.0-beta.0/clever-tools-2.1.0-beta.0_linux.tar.gz \
+RUN curl --output clever-tools_linux.tar.gz https://clever-tools.clever-cloud.com/releases/2.1.0-beta.1/clever-tools-2.1.0-beta.1_linux.tar.gz \
 	&& mkdir clever-tools_linux \
 	&& tar xvzf clever-tools_linux.tar.gz -C clever-tools_linux --strip-components=1 \
 	&& cp clever-tools_linux/clever /usr/local/bin
@@ -18,20 +18,19 @@ RUN \
 	mkdir -p /tmp/fakeroot/bin/ && \
 	cp /usr/local/bin/clever /tmp/fakeroot/bin/
 
-# This is commented for now while we wait for a bugfix about DNS see issues
+FROM busybox:glibc AS release
 
-#FROM busybox AS release
-#
-#LABEL version="2.1.0-beta.0" \
-#	maintainer="Clever Cloud CI <ci@clever-cloud.com>" \
-#	description="Command Line Interface for Clever Cloud." \
-#	license="Apache-2.0"
-#
-#WORKDIR /
-#
-#COPY --from=build /tmp/fakeroot/ /
-#
+LABEL version="2.1.0-beta.1" \
+	maintainer="Clever Cloud CI <ci@clever-cloud.com>" \
+	description="Command Line Interface for Clever Cloud." \
+	license="Apache-2.0"
+
+VOLUME ["/actions"]
+WORKDIR /actions
+
+COPY --from=build /tmp/fakeroot/ /
+
 ## The loader search ld-linux-x86-64.so.2 in /lib64 but the folder does not exist
-#RUN ln -s lib lib64
+RUN ln -s lib lib64
 
 ENTRYPOINT ["clever"]
