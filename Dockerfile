@@ -4,7 +4,7 @@ RUN apt-get update && apt-get install -y \
 	libtool \
 	curl
 
-RUN curl --output clever-tools_linux.tar.gz https://clever-tools.clever-cloud.com/releases/3.10.0/clever-tools-3.10.0_linux.tar.gz \
+RUN curl --output clever-tools_linux.tar.gz https://clever-tools.clever-cloud.com/releases/3.10.1/clever-tools-3.10.1_linux.tar.gz \
 	&& mkdir clever-tools_linux \
 	&& tar xvzf clever-tools_linux.tar.gz -C clever-tools_linux --strip-components=1 \
 	&& cp clever-tools_linux/clever /usr/local/bin
@@ -20,7 +20,7 @@ RUN \
 
 FROM busybox:glibc AS release
 
-LABEL version="3.10.0" \
+LABEL version="3.10.1" \
 	maintainer="Clever Cloud CI <ci@clever-cloud.com>" \
 	description="Command Line Interface for Clever Cloud." \
 	license="Apache-2.0"
